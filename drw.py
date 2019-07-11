@@ -5,9 +5,9 @@ DEFAULT_WIDTH = 1000
 DEFAULT_HEIGHT = 1000
 
 def emptydict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
-	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [[  0,  0,  0] for k in range(x*y)]))
+	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [(  0,  0,  0) for k in range(x*y)]))
 def fulldict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
-	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [[255,255,255] for k in range(x*y)]))
+	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [(255,255,255) for k in range(x*y)]))
 
 class Layer():
 	def __init__(self, x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT, d=0, center=r.C2(-DEFAULT_WIDTH//2, -DEFAULT_HEIGHT//2)):
@@ -39,6 +39,9 @@ class Layer():
 								  min(self_arr[2], other_arr[2]) ]})
 		return Layer(self.width, self.height, result)
 
+	def edit(self, coordinate, color):
+		self.dict[coordinate] = color	
+
 	def manipulate(self, f):
 		result = emptydict(self.width, self.height)
 		keys = self.dict.keys()
@@ -52,7 +55,7 @@ class Layer():
 	def drawlayer(self, image):
 		keys = self.dict.keys()
 		for key in keys:
-			color = tuple(self.dict[key])
+			color = self.dict[key]
 			key.draw(image, color)
 
 

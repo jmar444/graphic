@@ -1,5 +1,5 @@
 import math as m
-
+from PIL import Image
 pi = m.pi
 
 class C2:
@@ -15,16 +15,16 @@ class C2:
 		return _re + _im + 'i'
 
 	def __add__(self, other):
-		self, other = toc2(self), toc2(other)
-		return c2(self.re+other.re, self.im+other.im)
+		self, other = toC2(self), toC2(other)
+		return C2(self.re+other.re, self.im+other.im)
 
 	def __sub__(self, other):
-		self, other = toc2(self), toc2(other)
-		return c2(self.re-other.re, self.im-other.im)
+		self, other = toC2(self), toC2(other)
+		return C2(self.re-other.re, self.im-other.im)
 
 	def __mul__(self, other):
-		self, other = toc2(self), toc2(other)
-		return c2(self.re*other.re - self.im*other.im,
+		self, other = toC2(self), toC2(other)
+		return C2(self.re*other.re - self.im*other.im,
 				  self.re*other.im + self.im*other.re)
 
 	def __eq__(self, other):
@@ -34,16 +34,16 @@ class C2:
 		return hash(str(self))
 
 	def __neg__(self):
-		return c2(-self.re, -self.im)
+		return C2(-self.re, -self.im)
 
 	def __abs__(self):
 		return self.ro
 
 	def __pow__(self, n):
-		return self.ro * (m.cos(self.phi) + c2(im=1)*m.sin(self.phi))
+		return self.ro * (m.cos(self.phi) + C2(im=1)*m.sin(self.phi))
 
 	def conflux(self):
-		return c2(self.re, -self.im)
+		return C2(self.re, -self.im)
 
 	def draw(self, image, color):
 		x = int(self.re) + (image.size[0])//2
@@ -54,11 +54,11 @@ class C2:
 			pass
 
 
-def toc2(other):
-	if type(other) is c2:
+def toC2(other):
+	if type(other) is C2:
 		pass
 	else:
-		other = c2(other)
+		other = C2(other)
 	return other
 
 class Q4:
@@ -76,13 +76,13 @@ class Q4:
 		return _a + _b + 'i' + _c + 'j' + _d + 'k'
 
 	def __add__(self, other):
-		return q4(self.a+other.a, self.b+other.b, self.c+other.c, self.d+other.d)
+		return Q4(self.a+other.a, self.b+other.b, self.c+other.c, self.d+other.d)
 
 	def __sub__(self, other):
-		return q4(self.a-other.a, self.b-other.b, self.c-other.c, self.d-other.d)
+		return Q4(self.a-other.a, self.b-other.b, self.c-other.c, self.d-other.d)
 
 	def __mul__(self, other):
-		return q4(self.a*other.a - self.b*other.b - self.c*other.c - self.d*other.d,
+		return Q4(self.a*other.a - self.b*other.b - self.c*other.c - self.d*other.d,
 				  self.a*other.b + self.b*other.a + self.c*other.d - self.d*other.c, 
 				  self.a*other.c - self.b*other.d + self.c*other.a + self.d*other.b, 
 				  self.a*other.d + self.b*other.c - self.c*other.b + self.d*other.a)
@@ -94,5 +94,5 @@ class Q4:
 		return m.sqrt(self.a*self.a + self.b*self.b + self.c*self.c + self.d*self.d)
 
 	def conflux(self):
-		return q4(self.a, -self.b, -self.c, -self.d)
+		return Q4(self.a, -self.b, -self.c, -self.d)
 

@@ -5,15 +5,19 @@ DEFAULT_WIDTH = 1000
 DEFAULT_HEIGHT = 1000
 
 def emptydict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
-	return dict(zip(list(r.C2(i, j) for i in range(x) for j in range(y)), [[0,0,0] for k in range(x*y)]))
+	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [[  0,  0,  0] for k in range(x*y)]))
+def fulldict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
+	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [[255,255,255] for k in range(x*y)]))
 
 class Layer():
-	def __init__(self, x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT, d=0):
-		if !d:
-			emptydict()
-		else: self.dict = d
+	def __init__(self, x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT, d=0, center=r.C2(-DEFAULT_WIDTH//2, -DEFAULT_HEIGHT//2)):
 		self.width = x
 		self.height = y
+		self.center = center
+		if d is 0:
+			  self.dict = emptydict(x, y)
+		else: self.dict = d
+
 
 	def __add__(self, other):
 		result = {}

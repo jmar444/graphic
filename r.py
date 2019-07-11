@@ -2,7 +2,7 @@ import math as m
 
 pi = m.pi
 
-class c2:
+class C2:
 	def __init__(self, re=0, im=0):
 		self.re = re
 		self.im = im
@@ -61,7 +61,7 @@ def toc2(other):
 		other = c2(other)
 	return other
 
-class q4:
+class Q4:
 	def __init__(self, b=0, c=0, d=0, a=0):
 		self.a = a
 		self.b = b

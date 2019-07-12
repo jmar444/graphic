@@ -1,19 +1,20 @@
 import r
 import matrix
 import drw
+import geometry as g
 from PIL import Image
+import time
+import mandelbrot
 
-def rotate90(x):
-	return r.C2(0,1)*x
+def main():
+	dic = mandelbrot.mandel(r.C2(-0.5), 2, 500, mandelbrot.colortrivial)
+	a = drw.Layer(1000, 1000, dic)
+	image = Image.new("RGB", (1000, 1000), "white")
+	a.drawlayer(image)
+	image.save('test.png')
+	image.show()
 
-a = drw.Layer(999, 999, drw.emptydict(1000, 1000))
-for i in range(-500, 501):
-	a.edit(r.C2(i), (255,255,255))
+start_time = time.time()
+main()
+print("--- %s  ---" % (time.time() - start_time))
 
-
-image = Image.new("RGB", (1000, 1000), "white")
-
-a.drawlayer(image)
-
-image.save('test.png')
-image.show()

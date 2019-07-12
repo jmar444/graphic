@@ -1,22 +1,25 @@
 import r
 import matrix
 
+global DEFAULT_WIDTH
+global DEFAULT_HEIGHT
+
 DEFAULT_WIDTH = 1000
 DEFAULT_HEIGHT = 1000
 
-def emptydict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
-	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [(  0,  0,  0) for k in range(x*y)]))
 def fulldict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
+	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [(  0,  0,  0) for k in range(x*y)]))
+def emptydict(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
 	return dict(zip(list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1)), [(255,255,255) for k in range(x*y)]))
+def emptykeys(x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT):
+	return list(r.C2(i, j) for i in range(-x//2, x//2+1) for j in range(-y//2, y//2+1))
 
 class Layer():
-	def __init__(self, x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT, d=0, center=r.C2(-DEFAULT_WIDTH//2, -DEFAULT_HEIGHT//2)):
+	def __init__(self, x=DEFAULT_WIDTH, y=DEFAULT_HEIGHT, d={}, center=r.C2(-DEFAULT_WIDTH//2, -DEFAULT_HEIGHT//2)):
 		self.width = x
 		self.height = y
 		self.center = center
-		if d is 0:
-			  self.dict = emptydict(x, y)
-		else: self.dict = d
+		self.dict = d
 
 
 	def __add__(self, other):
@@ -53,9 +56,10 @@ class Layer():
 		return Layer(self.width, self.height, result)
 
 	def drawlayer(self, image):
-		keys = self.dict.keys()
-		for key in keys:
+		self_keys = self.dict.keys()
+		for key in self_keys:
 			color = self.dict[key]
 			key.draw(image, color)
+
 
 

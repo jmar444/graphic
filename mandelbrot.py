@@ -7,7 +7,7 @@ import time
 	# c = complex(-0.4, 0.6)
 	# c = complex(0.285, 0.01)
 
-keys = drw.emptykeys()
+keys = drw.emptykeys(2000, 2000)
 
 def fMandel(c, n, z=0):
 	for i in range(n):
@@ -18,24 +18,20 @@ def fMandel(c, n, z=0):
 	return 0
 
 def mandel(cntr, width, nit, colorf, mxy=1000):
-	o = -.5*r.C2(width, width)
 	result = {}
 	for key in keys:
-		t = width/mxy*key+o+cntr
-		a = r.C2(t.real, t.imag)
+		a = width/mxy*key+cntr
 		n = fMandel(a, nit)
-		result.update({r.C2(a*mxy/width):colorf(n, nit)})
+		result.update({key:colorf(n, nit)})
 	#print(result.values())
 	return result
 
-def julia(cntr, width, nit, colorf, mxy=1000):
-	c = r.C2(-0.7269, 0.1889)
-	o = -.5*r.C2(width, width)
+def julia(cntr, width, nit, colorf, mxy=1000, c = r.C2(-0.7269, 0.1889)):
 	result = {}
 	for key in keys:
-		a = width/mxy*key+o+cntr
+		a = width/mxy*key+cntr
 		n = fMandel(c, nit, a)
-		result.update({a*mxy/width:colorf(n, nit)})
+		result.update({key:colorf(n, nit)})
 	return result
 
 def colortrivial(n, maxit): return (n, n, n)
